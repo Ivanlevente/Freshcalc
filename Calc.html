@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Schmelzender Dark Mode Rechner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .calculator {
+      background: #1d1d1d;
+      padding: 2rem;
+      border-radius: 2rem;
+      box-shadow: 20px 20px 40px #0d0d0d, -20px -20px 40px #2d2d2d;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(60px, 1fr));
+      gap: 15px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .display {
+      grid-column: span 4;
+      background: #1a1a1a;
+      margin-bottom: 20px;
+      padding: 1rem;
+      font-size: 2.2rem;
+      border-radius: 1.5rem;
+      box-shadow: inset 8px 8px 16px #0d0d0d, inset -8px -8px 16px #2d2d2d;
+      text-align: right;
+      overflow-x: auto;
+      color: #fff;
+    }
+    .button {
+      background: #2a2a2a;
+      border: none;
+      border-radius: 1.5rem;
+      box-shadow: 5px 5px 10px #0d0d0d, -5px -5px 10px #3a3a3a;
+      font-size: 1.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #eee;
+      padding: 15px;
+    }
+    .button:active {
+      box-shadow: inset 4px 4px 8px #0d0d0d, inset -4px -4px 8px #3a3a3a;
+      transform: scale(0.97);
+    }
+    .button.operator {
+      color: #64b5f6;
+    }
+    .button.equal {
+      background: #4CAF50;
+      color: white;
+      box-shadow: 5px 5px 10px #388e3c, -5px -5px 10px #66bb6a;
+    }
+    .button.equal:active {
+      box-shadow: inset 4px 4px 8px #388e3c, inset -4px -4px 8px #66bb6a;
+    }
+    .button.clear {
+      color: #ff5252;
+    }
+
+    /* Handy-Optimierung */
+    @media (max-width: 500px) {
+      .calculator {
+        padding: 1.5rem;
+        gap: 10px;
+      }
+      .button {
+        font-size: 1.5rem;
+        padding: 12px;
+      }
+      .display {
+        font-size: 2rem;
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <div id="display" class="display">0</div>
+
+  <button class="button clear" onclick="clearDisplay()">C</button>
+  <button class="button" onclick="append('(')">(</button>
+  <button class="button" onclick="append(')')">)</button>
+  <button class="button operator" onclick="append('/')">/</button>
+
+  <button class="button" onclick="append('7')">7</button>
+  <button class="button" onclick="append('8')">8</button>
+  <button class="button" onclick="append('9')">9</button>
+  <button class="button operator" onclick="append('*')">*</button>
+
+  <button class="button" onclick="append('4')">4</button>
+  <button class="button" onclick="append('5')">5</button>
+  <button class="button" onclick="append('6')">6</button>
+  <button class="button operator" onclick="append('-')">-</button>
+
+  <button class="button" onclick="append('1')">1</button>
+  <button class="button" onclick="append('2')">2</button>
+  <button class="button" onclick="append('3')">3</button>
+  <button class="button operator" onclick="append('+')">+</button>
+
+  <button class="button" onclick="append('0')">0</button>
+  <button class="button" onclick="append('.')">.</button>
+  <button class="button equal" onclick="calculate()">=</button>
+</div>
+
+<script>
+  let display = document.getElementById('display');
+
+  function append(value) {
+    if (display.innerText === '0') {
+      display.innerText = value;
+    } else {
+      display.innerText += value;
+    }
+  }
+
+  function calculate() {
+    try {
+      display.innerText = eval(display.innerText);
+    } catch {
+      display.innerText = 'Fehler';
+    }
+  }
+
+  function clearDisplay() {
+    display.innerText = '0';
+  }
+</script>
+
+</body>
+</html>
